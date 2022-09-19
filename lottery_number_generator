@@ -1,4 +1,4 @@
-iport random
+import random
 lotto = set() # lotto 변수를 set 자료형으로 선언
 
 def get_lotto_number(count):
