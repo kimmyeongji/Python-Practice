@@ -1,0 +1,31 @@
+from random import choice
+
+choice_list = ['가위','바위','보']
+computer_choice = choice(choice_list)
+
+while True:
+    my_choice = input('가위바위보 게임을 시작합니다. 무엇을 낼 지 입력하세요 : ')
+
+    if my_choice in choice_list:
+        break
+    else:
+        print('잘못된 입력입니다. 다시 입력하세요.')
+
+print(f'당신은 {my_choice}를 선택하였습니다.')
+print(f'컴퓨터는 {computer_choice}를 선택하였습니다.')
+
+
+if my_choice == '가위' and computer_choice == '보':
+    print('이겼습니다!')
+elif my_choice == '바위' and computer_choice == '가위':
+        print('이겼습니다!')
+elif my_choice == '보' and computer_choice == '바위':
+        print('이겼습니다!')
+elif my_choice == '가위' and computer_choice == '보':
+    print('졌습니다')
+elif my_choice == '바위' and computer_choice == '가위':
+    print('졌습니다')
+elif my_choice == '보' and computer_choice == '바위':
+    print('졌습니다')
+elif my_choice == computer_choice:
+    print('비겼습니다')
