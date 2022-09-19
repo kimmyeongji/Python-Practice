@@ -6,52 +6,80 @@ from datetime import datetime
 def main():
     length = int(input('자리수를 입력하세요 : '))
 
+##### input number를 set() 자료형으로 변환  👉 중복되어 추출되는 값을 막기 위함
+
     random_numbers = set()
+
+##### while 반복문을 사용해 자리수(length)만큼 숫자를 추출
+##### randint/randrage로 추출할 범위 설정 → random으로 임의의 숫자 선택
+##### .add(set 자료형에서 값을 담기)으로 랜덤 추출 숫자 담기
 
     while len(random_numbers) < length:
         random_numbers.add(random.randint(0, 9))
 
-    random_numbers = list(random_numbers)
-    random.shuffle(random_numbers)
-    print(random_numbers)
 
-    start_time = time.time()
+##### set( ) 자료형을 list[ ] 자료형으로 전환 : set()에는 값이 정렬되어 담길 수 있고 값의 순서를 바꿀 수 없어, 임의의 순서를 만들기 위해 값 수정이 쉬운 list[]형으로 변환
+
+random_numbers = list(random_numbers)
+    random.shuffle(random_numbers)
+
+##### list[] 자료형으로 전환한 random_numbers를 random.shffule()로 무작위로 순서를 바꿈
+
+##### 시작 시간 기록 : .time
+start_time = time.time()
+
+### 시도 횟수 초기값 설정
     try_count = 0
 
-    while True:
-        user_number = input('값을 입력하세요(종료하려면 <exit>를 입력하세요) : ')
+
+##### 자리수를 사용자가 입력하게 함, 이것을 length로 사용하기 위해 int()로 자료형 변환
+##### 'exit'를 입력하면 return, 즉 종료
+
+while True: ##### 사용자가 컴퓨터의 값을 정확히 알아내기 전까지 계속 반복(반복 횟수의 제한이 없음)
+    user_number = input('값을 입력하세요(종료하려면 <exit>를 입력하세요) : ')
         if user_number == 'exit':
             return
 
-
+##### 시도 횟수 1씩 증가
+        
         try_count += 1
 
+#### 볼, 스트라이크, 아웃 카운트 초기값 설정
+        
         out_count = 0
         ball_count = 0
         strike_count = 0
 
-        for i, v in enumerate(user_number):
+
+##### 사용자가 입력한 값의 순서를 분석하기 위해 enumerate()를 사용해 각 자리수의 index number 부여
+##### 사용자가 입력한 값은 기본적으로 str()이므로 int()로 자료형 변환
+
+
+        for i, v in enumerate(user_number): ##### 반복문
             v = int(v)
-            # print(i, v)
-            if v not in random_numbers:
+            if v not in random_numbers: ##### 각 자리수에 임의로 컴퓨터가 추출한 숫자가 하나도 없는 경우, 아웃 카운팅
                 out_count += 1
 
             else:
-                if random_numbers[i] == v:
+                if random_numbers[i] == v: ##### 각 자리수 중 하나가 컴퓨터가 추출한 숫자와 위치가 일치하는 경우, 스트라이크 카운팅
                     strike_count += 1
-                else:
+                else: ##### 각 자리수 중 하나가 컴퓨터가 추출한 숫자와 위치가 일치하진 않으나 존재하는 경우, 볼 카운팅
                     ball_count += 1
 
-            if strike_count == length:
+            if strike_count == length: ##### 사용자가 컴퓨터가 추출한 숫자를 완벽히 맞추는 경우, 종료(return)
+
                 print('------------------------------------')
                 print('정답입니다')
                 print(f'소요 시간 : {time.time()-start_time:.2f}초')
                 print(f'종료 시간 : {datetime.now()}')
                 print(f'도전 횟수 : {try_count}')
                 print('------------------------------------')
+                print(f'{ball_count}볼, {strike_count}스트라이크, {out_count}아웃 입니다')
+                
                 return
 
-        print(f'{ball_count}볼, {strike_count}스트라이크, {out_count}아웃 입니다')
 
+
+##### 지정한 함수 main()을 동작 실행
 
 main()
